@@ -1,0 +1,44 @@
+<?php
+    
+    //Which week is it now?
+    include ('page-init.php');
+    include ('./includes/classDogGame.php');
+    include ('./includes/classDogGamesForWeek.php');
+    include ('./includes/classGamesConstructType.php');
+    
+    $delayIntervalDays = 4;
+
+    $row = $db->cbSqlQuery('SELECT * FROM `DWeeks` WHERE DATE(NOW()) - INTERVAL '.$delayIntervalDays.' DAY <= WeekDateEnd and idPoolSubtypes = '.$pool->subtypeId.' order by WeekDateEnd limit 0,1');
+    
+    if ($db->numRowsAffected == 0) {
+		$weekDescription = 'Season Complete';
+		$weekId = -1;    
+    }
+    else {
+		$weekDescription = $row['WeekName'];
+		$weekId = $row['idDWeeks'];
+	}
+    
+    $games = new GamesForWeek($weekId, $db, $constructType = GamesConstructType::fromDBPicksOnly);
+    //$games = new GamesForWeek(215, $db, $constructType = GamesConstructType::fromDBPicksOnly);
+    
+?>
+
+<html><head>
+<style>
+    table.game td, th {border:1px solid #000000;}
+    th{background-color:#5C9CCC;color:#FFFFFF;font-weight:bold;}
+    table.game {border-collapse:collapse; margin-bottom:1.5em;margin-left:20px;}
+    table.picked{margin-left:40px;}
+    .team {min-width:215px;}
+    .spread{min-width:55px; text-align:center;}
+    .radioselect{vertical-align:middle;}
+    .gameid{vertical-align:middle;min-width:34px;text-align:center;}
+    .topinfo{font-size:85%; background-color:#D1D1D1; width:540px;padding:0.4em;}
+</style>
+</head>
+<body>
+        <h4>Enter Game Scores </h4>
+<?php $games->printScoreForm(); ?>
+</body>
+</html>
