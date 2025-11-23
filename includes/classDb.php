@@ -402,8 +402,14 @@ class Db extends PDO
     }
     
     public function getAllPicksForUser($stopWeek, $poolId, $poolUserId) {
+    
+    	// print($stopWeek).'<br>';
+//     	print ($poolId).'<br>';
+//     	print ($poolUserId).'<br>';
+    
         $sql = 'select w.* from DWeeks w join Pools p on w.idPoolSubtypes = p.idPoolSubtypes join PoolUserEntries pue on p.idPools = pue.idPools 
-                where w.idDWeeks < :stopWeek and p.idPools = :poolId and pue.idPoolUserEntries = :pueid';
+                where w.idDWeeks < :stopWeek and p.idPools = :poolId and pue.idPoolUserEntries = :pueid
+                order by w.idDWeeks';
         $this->stmt = $this->prepare($sql);
         $this->stmt->bindParam(':stopWeek', $stopWeek, PDO::PARAM_INT);
         $this->stmt->bindParam(':poolId', $poolId, PDO::PARAM_INT);

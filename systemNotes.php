@@ -1,3 +1,7 @@
+<div class="notes-header">November 23, 2025</div>
+<div class="notes-body">Fixed a bug with the display of a person's list of all picks for the season.
+</div>
+
 <div class="notes-header">August 29, 2024</div>
 <div class="notes-body">Fixed problem where system couldn't parse lines when the date on draft kings said "Today" or "Tomorrow" instead of an actual date.</div>
 
