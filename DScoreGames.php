@@ -6,8 +6,8 @@
     include ('./includes/classDogGamesForWeek.php');
     include ('./includes/classGamesConstructType.php');
     
-    $delayIntervalDays = 4;
-
+    $delayIntervalDays = 3;
+    
     $row = $db->cbSqlQuery('SELECT * FROM `DWeeks` WHERE DATE(NOW()) - INTERVAL '.$delayIntervalDays.' DAY <= WeekDateEnd and idPoolSubtypes = '.$pool->subtypeId.' order by WeekDateEnd limit 0,1');
     
     if ($db->numRowsAffected == 0) {
